@@ -18,6 +18,11 @@ private:
 	glm::mat4 m_view;
 	glm::mat4 m_model;
 
+	glm::vec3 cubeColour;
+	glm::vec3 floorColour;
+	glm::vec3 lightDir;
+	glm::vec3 lightColour;
+
 	Shader* m_shader;
 
 	//////////////////// cube data

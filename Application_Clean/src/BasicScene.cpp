@@ -2,6 +2,7 @@
 
 BasicScene::BasicScene(GLFWwindow* window, std::shared_ptr<InputHandler> H) : Scene(window, H)
 {
+	glEnable(GL_DEPTH_TEST);
 	m_camera = new FirstPersonCamera();
 	m_camera->attachHandler(window, H);
 	m_shader = new Shader("..\\shaders\\plainVert.vs", "..\\shaders\\plainFrag.fs");
@@ -24,10 +25,26 @@ void BasicScene::update(float dt)
 	m_shader->setMat4("projection", m_projection);
 	m_shader->setMat4("view", m_view);
 	m_shader->setMat4("model", m_model);
+	m_shader->setVec3("lightDir", glm::vec3(0, -1, 0));
+	m_shader->setVec3("lightCol", glm::vec3(1.0, 1.0, 1.0));
+	m_shader->setVec3("objectCol", glm::vec3(1.0, 0.4, 0.4));
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);   // what happens if we change to GL_LINE?
 	glBindVertexArray(m_cubeVAO);  // bind and draw cube
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+	m_model = glm::translate(m_model, glm::vec3(0.0, 0.0, 5.0));
+	m_shader->setMat4("model", m_model);
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+	m_model = glm::translate(m_model, glm::vec3(5.0, 0.0, 5.0));
+	m_model = glm::rotate(m_model, (float)(glfwGetTime()), glm::vec3(2.0, 2.0, 2.0))	;
+	m_shader->setMat4("model", m_model);
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+	m_model = glm::mat4(1.0f);
+	m_shader->setMat4("model", m_model);
+	m_shader->setVec3("objectCol", glm::vec3(0.1, 0.3, 0.3));
 	glBindVertexArray(m_floorVAO);  // bind and draw floor
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
