@@ -30,6 +30,13 @@ void BasicScene::update(float dt)
 	m_shader->setVec3("lightCol", glm::vec3(1.0, 1.0, 1.0));
 	m_shader->setVec3("objectCol", glm::vec3(1.0, 0.4, 0.4));
 
+	//SpotLight
+	m_shader->setVec3("pLightPosition", glm::vec3(2.0, 3.0, 4.0));
+	m_shader->setVec3("pLight.colour", glm::vec3(5.0, 0.0, 0.0));
+	m_shader->setFloat("pLight.Kc", 1.0);
+	m_shader->setFloat("pLight.Kl", 0.22f);
+	m_shader->setFloat("pLight.Kc", 0.2f);
+
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);   // what happens if we change to GL_LINE?
 	glBindVertexArray(m_cubeVAO);  // bind and draw cube
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
