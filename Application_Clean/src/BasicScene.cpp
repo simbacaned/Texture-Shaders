@@ -25,6 +25,7 @@ void BasicScene::update(float dt)
 	m_shader->setMat4("projection", m_projection);
 	m_shader->setMat4("view", m_view);
 	m_shader->setMat4("model", m_model);
+	m_shader->setVec3("cameraPos", m_camera->getPosition());
 	m_shader->setVec3("lightDir", glm::vec3(0, -1, 0));
 	m_shader->setVec3("lightCol", glm::vec3(1.0, 1.0, 1.0));
 	m_shader->setVec3("objectCol", glm::vec3(1.0, 0.4, 0.4));
