@@ -13,6 +13,7 @@ public:
 
 private:
 	void createBuffers();
+	void SetUniforms();
 	unsigned int m_floorVBO, m_cubeVBO, m_floorEBO, m_cubeEBO, m_cubeVAO, m_floorVAO;
 	glm::mat4 m_projection;
 	glm::mat4 m_view;

@@ -21,6 +21,38 @@ void BasicScene::update(float dt)
 
 	// set uniforms - why do we set this each frame?
 
+	SetUniforms();
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);   // what happens if we change to GL_LINE?
+	glBindVertexArray(m_cubeVAO);  // bind and draw cube
+
+	//Cube1
+	m_model = glm::translate(m_model, glm::vec3(0.0, 1.0, 0.0));
+	m_shader->setMat4("model", m_model);
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+	//Cube2
+	m_model = glm::translate(m_model, glm::vec3(0.0, 0.0, 5.0));
+	m_shader->setMat4("model", m_model);
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+	//Cube3
+	m_model = glm::translate(m_model, glm::vec3(5.0, 0.0, 5.0));
+	m_model = glm::rotate(m_model, (float)(glfwGetTime()), glm::vec3(2.0, 2.0, 2.0))	;
+	m_shader->setMat4("model", m_model);
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+	//Plane
+	m_model = glm::mat4(1.0f);
+	m_shader->setMat4("model", m_model);
+	m_shader->setVec3("objectCol", glm::vec3(0.1, 0.3, 0.3));
+	glBindVertexArray(m_floorVAO);  // bind and draw floor
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+}
+
+void BasicScene::SetUniforms()
+{
 	m_shader->use();  // do we need this command each frame? - Probably not if we only have one shader
 	m_shader->setMat4("projection", m_projection);
 	m_shader->setMat4("view", m_view);
@@ -32,30 +64,10 @@ void BasicScene::update(float dt)
 
 	//SpotLight
 	m_shader->setVec3("pLightPosition", glm::vec3(2.0, 3.0, 4.0));
-	m_shader->setVec3("pLight.colour", glm::vec3(5.0, 0.0, 0.0));
+	m_shader->setVec3("pLight.colour", glm::vec3(0.5, 0.5, 0.5));
 	m_shader->setFloat("pLight.Kc", 1.0);
-	m_shader->setFloat("pLight.Kl", 0.22f);
-	m_shader->setFloat("pLight.Kc", 0.2f);
-
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);   // what happens if we change to GL_LINE?
-	glBindVertexArray(m_cubeVAO);  // bind and draw cube
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-
-	m_model = glm::translate(m_model, glm::vec3(0.0, 0.0, 5.0));
-	m_shader->setMat4("model", m_model);
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-
-	m_model = glm::translate(m_model, glm::vec3(5.0, 0.0, 5.0));
-	m_model = glm::rotate(m_model, (float)(glfwGetTime()), glm::vec3(2.0, 2.0, 2.0))	;
-	m_shader->setMat4("model", m_model);
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-
-	m_model = glm::mat4(1.0f);
-	m_shader->setMat4("model", m_model);
-	m_shader->setVec3("objectCol", glm::vec3(0.1, 0.3, 0.3));
-	glBindVertexArray(m_floorVAO);  // bind and draw floor
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
+	m_shader->setFloat("pLight.Kl", 0.2f);
+	m_shader->setFloat("pLight.Ke", 0.22f);
 }
 
 void BasicScene::createBuffers()

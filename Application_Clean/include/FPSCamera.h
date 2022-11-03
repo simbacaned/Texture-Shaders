@@ -1,5 +1,7 @@
 #pragma once
 #include "Camera.h"
+#include "Shader.h"
+
 
 /*
 
@@ -25,7 +27,12 @@ private:
 	float m_speed;         // camera speed
 	float m_sensitivity;   // mouse sensitivity
 	float m_pitchContrain; // don't allow pitch to go above/below 90 otherwise screen flips
-
+	bool isBlinn = true;
+	bool isPressingE = false;
+	bool isPressing1 = false;
+	bool isPressing2 = false;
+	bool isPressing3 = false;
+	Shader* m_shader;
 	GLFWwindow* m_window;
 	std::shared_ptr<InputHandler> m_handler;
 

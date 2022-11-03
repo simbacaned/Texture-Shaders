@@ -1,7 +1,6 @@
 #include "FPSCamera.h"
 
 
-
 FirstPersonCamera::FirstPersonCamera(glm::vec3 pos) : Camera(pos), m_speed(5.0f), m_sensitivity(0.025f)
 {
 	m_zoom = 45.0;
@@ -9,6 +8,7 @@ FirstPersonCamera::FirstPersonCamera(glm::vec3 pos) : Camera(pos), m_speed(5.0f)
 	m_pitch = 0.0f;
 	m_pitchContrain = 89.0f;
 	updateCameraVectors();
+	m_shader = new Shader("..\\shaders\\plainVert.vs", "..\\shaders\\plainFrag.fs");
 }
 
 //getters
@@ -51,6 +51,54 @@ void FirstPersonCamera::update(float dt)
 		if (m_handler->isKeyPressed(GLFW_KEY_D)) {
 			m_position += m_right * vel;
 		}
+		if (m_handler->isKeyPressed(GLFW_KEY_E)) {
+			if (isPressingE == false)
+			{
+				isBlinn = !isBlinn;
+				m_shader->setBool("useBlinn", isBlinn);
+				isPressingE = true;
+			}
+		}
+		if (m_handler->isKeyPressed(GLFW_KEY_1)) {
+			if (isPressing1 == false)
+			{
+				isPressing1 = !isPressing1;
+				m_shader->setBool("useSpot", isPressing1);
+				isPressing1 = true;
+			}
+		}
+		if (m_handler->isKeyPressed(GLFW_KEY_2)) {
+			if (isPressing2 == false)
+			{
+				isPressing2 = !isPressing2;
+				m_shader->setBool("usePoint", isPressing2);
+				isPressing2 = true;
+			}
+		}
+		if (m_handler->isKeyPressed(GLFW_KEY_3)) {
+			if (isPressing3 == false)
+			{
+				isPressing3 = !isPressing3;
+				m_shader->setBool("useRim", isPressing3);
+				isPressing3 = true;
+			}
+		}
+	}
+	if (!m_handler->isKeyPressed(GLFW_KEY_E))
+	{
+		isPressingE = false;
+	}
+	if (!m_handler->isKeyPressed(GLFW_KEY_1))
+	{
+		isPressing1 = false;
+	}
+	if (!m_handler->isKeyPressed(GLFW_KEY_2))
+	{
+		isPressing2 = false;
+	}
+	if (!m_handler->isKeyPressed(GLFW_KEY_3))
+	{
+		isPressing3 = false;
 	}
 
 	look(m_handler->getMouseDeltaX(), m_handler->getMouseDeltaY());
