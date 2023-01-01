@@ -28,6 +28,9 @@ private:
 	float m_sensitivity;   // mouse sensitivity
 	float m_pitchContrain; // don't allow pitch to go above/below 90 otherwise screen flips
 	bool isBlinn = true;
+	bool isPoint = true;
+	bool isSpot = true;
+	bool isRim = true;
 	bool isPressingE = false;
 	bool isPressing1 = false;
 	bool isPressing2 = false;

@@ -1,4 +1,5 @@
 #include "BasicScene.h"
+#include <stb_image.h>
 
 BasicScene::BasicScene(GLFWwindow* window, std::shared_ptr<InputHandler> H) : Scene(window, H)
 {
@@ -54,6 +55,10 @@ void BasicScene::update(float dt)
 void BasicScene::SetUniforms()
 {
 	m_shader->use();  // do we need this command each frame? - Probably not if we only have one shader
+	m_shader->setInt("diffuseTexture", 0);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, metalPlateTexture);
+
 	m_shader->setMat4("projection", m_projection);
 	m_shader->setMat4("view", m_view);
 	m_shader->setMat4("model", m_model);
@@ -62,12 +67,66 @@ void BasicScene::SetUniforms()
 	m_shader->setVec3("lightCol", glm::vec3(1.0, 1.0, 1.0));
 	m_shader->setVec3("objectCol", glm::vec3(1.0, 0.4, 0.4));
 
-	//SpotLight
+	//PointLight
 	m_shader->setVec3("pLightPosition", glm::vec3(2.0, 3.0, 4.0));
 	m_shader->setVec3("pLight.colour", glm::vec3(0.5, 0.5, 0.5));
 	m_shader->setFloat("pLight.Kc", 1.0);
 	m_shader->setFloat("pLight.Kl", 0.2f);
 	m_shader->setFloat("pLight.Ke", 0.22f);
+
+	//SpotLight
+	m_shader->setVec3("sLight.position", m_camera->getPosition());
+	m_shader->setVec3("sLight.direction", m_camera->getFront());
+	m_shader->setVec3("sLight.colour", glm::vec3(0.1f, 0.1f, 0.1f));
+	m_shader->setFloat("sLight.Kc", 1.0);
+	m_shader->setFloat("sLight.Kl", 0.027f);
+	m_shader->setFloat("sLight.Ke", 0.0028f);
+	m_shader->setFloat("sLight.innerRad", glm::cos(glm::radians(12.5f)));
+	m_shader->setFloat("sLight.outerRad", glm::cos(glm::radians(17.5f)));
+}
+
+unsigned int BasicScene::loadTexture(char const* path)
+{
+	unsigned int textureID;
+	glGenTextures(1, &textureID);
+
+	int width, height, nrComponents;
+	unsigned char* data = stbi_load(path, &width, &height, &nrComponents, 0);
+	if (data)
+	{
+		GLenum format;
+		if (nrComponents == 1)
+		{
+			format = GL_RED;
+		}
+
+		else if (nrComponents == 3)
+		{
+			format = GL_RGB;
+		}
+
+		else if (nrComponents == 4)
+		{
+			format = GL_RGBA;
+		}
+
+		glBindTexture(GL_TEXTURE_2D, textureID);
+		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		stbi_image_free(data);
+		std::cout << "Loaded texture at path: " << path << " width " << width <<  " id " << textureID << std::endl;
+	}
+	else
+	{
+		std::cout << "Texture failed to load at path: " << path << std::endl;
+		stbi_image_free(data);
+	}
+	return textureID;
 }
 
 void BasicScene::createBuffers()

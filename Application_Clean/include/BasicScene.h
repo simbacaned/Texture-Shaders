@@ -8,6 +8,7 @@ class BasicScene : public Scene
 public:
 	BasicScene(GLFWwindow* window, std::shared_ptr<InputHandler> H); // constructor
 	void update(float dt) override;   // per frame update
+	unsigned int loadTexture(char const* path);
 	FirstPersonCamera* m_camera;
 	//a seccond test comment
 
@@ -23,6 +24,8 @@ private:
 	glm::vec3 floorColour;
 	glm::vec3 lightDir;
 	glm::vec3 lightColour;
+
+	unsigned int metalPlateTexture = loadTexture("H:/Documents/shader1/Resources/Textures/metalPlate/diffuse.jpg");
 
 	Shader* m_shader;
 

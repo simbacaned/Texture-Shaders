@@ -62,24 +62,24 @@ void FirstPersonCamera::update(float dt)
 		if (m_handler->isKeyPressed(GLFW_KEY_1)) {
 			if (isPressing1 == false)
 			{
-				isPressing1 = !isPressing1;
-				m_shader->setBool("useSpot", isPressing1);
+				isPoint = !isPoint;
+				m_shader->setBool("usePoint", isPoint);
 				isPressing1 = true;
 			}
 		}
 		if (m_handler->isKeyPressed(GLFW_KEY_2)) {
 			if (isPressing2 == false)
 			{
-				isPressing2 = !isPressing2;
-				m_shader->setBool("usePoint", isPressing2);
+				isSpot = !isSpot;
+				m_shader->setBool("useSpot", isSpot);
 				isPressing2 = true;
 			}
 		}
 		if (m_handler->isKeyPressed(GLFW_KEY_3)) {
 			if (isPressing3 == false)
 			{
-				isPressing3 = !isPressing3;
-				m_shader->setBool("useRim", isPressing3);
+				isRim = !isRim;
+				m_shader->setBool("useRim", isRim);
 				isPressing3 = true;
 			}
 		}
