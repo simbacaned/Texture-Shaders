@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{3d7642f4-5176-4c7f-b0d6-204049781ece}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\EntryPoint.cpp">
@@ -37,6 +40,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\stb_image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\normalMapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TDO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -71,5 +83,58 @@
     <ClInclude Include="include\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\normalMapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TDO.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Shaders\plainFrag.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Shaders\plainVert.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Shaders\PP.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Shaders\PPd.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Shaders\PPc.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Shaders\lightShader.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Shaders\lightShader.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Shaders\Ffrag.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Shaders\FfragTEST.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Shaders\Fvert.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Shaders\SM.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Shaders\SM.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Shaders\PXmap.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Shaders\PXmap.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

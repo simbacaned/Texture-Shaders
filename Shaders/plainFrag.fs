@@ -7,7 +7,7 @@ float getRimLight(vec3 norm, vec3 viewDir);
 
 out vec4 FragColor;
 
-in vec3 normal ;
+in vec3 normal;
 in vec3 posWS;
 in vec2 uv;
 
@@ -40,6 +40,8 @@ uniform vec3 cameraPos;
 uniform pointLight pLight;
 uniform spotLight sLight;
 
+uniform sampler2D diffuseTexture;
+
 float ambientFactor = 0.5;
 float shine = 64;
 float specularStrength = 0.2;
@@ -51,7 +53,6 @@ uniform bool useSpot = true;
 uniform bool usePoint = true;
 uniform bool useRim = true;
 
-uniform sampler2D diffuseTexture;
 
 vec3 ambientColour;
 vec3 diffuseColour;
@@ -88,28 +89,29 @@ vec3 getDirectionalLight(vec3 norm, vec3 viewDir)
 {
     vec3 diffMapCol = texture(diffuseTexture, uv).xyz;
     //ambient
-   ambientColour = lightCol * diffMapCol * ambientFactor;
-   //diffuse
-   float diffuseFactor = dot(norm, -lightDir);
-   diffuseFactor = max(diffuseFactor,0.0);
-   diffuseColour = lightCol * diffMapCol * diffuseFactor;
-   //specular
-   if(useBlinn)
-   {
-       vec3 halfwayDir = normalize(lightDir + viewDir);
-       specularFactor =  dot(norm, halfwayDir);
-   }
-   else
-   {
-       vec3 reflectDir = reflect(lightDir, norm);
-       float specularFactor = dot(viewDir, reflectDir);
-   }
-   specularFactor = max(specularFactor, 0.0);
-   specularFactor = pow(specularFactor, shine);
-   specularColour = lightCol * specularFactor * specularStrength;
+    ambientColour = lightCol * diffMapCol * ambientFactor;
+    //diffuse
+    float diffuseFactor = dot(norm, -lightDir);
+    diffuseFactor = max(diffuseFactor,0.0);
+    diffuseColour = lightCol * diffMapCol * diffuseFactor;
 
-   vec3 result = ambientColour + diffuseColour + specularColour; 
-   return result;
+    //specular
+    if(useBlinn)
+    {
+        vec3 halfwayDir = normalize(lightDir + viewDir);
+        specularFactor =  dot(norm, halfwayDir);
+    }
+    else
+    {
+        vec3 reflectDir = reflect(lightDir, norm);
+        float specularFactor = dot(viewDir, reflectDir);
+    }
+    specularFactor = max(specularFactor, 0.0);
+    specularFactor = pow(specularFactor, shine);
+    specularColour = lightCol * specularFactor * specularStrength;
+
+    vec3 result = ambientColour + diffuseColour + specularColour; 
+    return result;
 }
 
 vec3 getPointLight(vec3 norm, vec3 viewDir)
@@ -122,7 +124,6 @@ vec3 getPointLight(vec3 norm, vec3 viewDir)
 
     //ambient
     ambientColour = lightCol*diffMapCol*ambientFactor;
-    ambientColour = ambientColour * attn;
 
     //diffuse
     float diffuseFactor = dot(norm, pLightDir);

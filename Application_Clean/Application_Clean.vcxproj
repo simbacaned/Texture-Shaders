@@ -150,8 +150,11 @@
     <ClCompile Include="src\FPSCamera.cpp" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\InputHandler.cpp" />
+    <ClCompile Include="src\normalMapper.cpp" />
+    <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\stb_image.cpp" />
+    <ClCompile Include="src\TDO.cpp" />
     <ClCompile Include="src\WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -160,11 +163,30 @@
     <ClInclude Include="include\FPSCamera.h" />
     <ClInclude Include="include\GLFWinputCodes.h" />
     <ClInclude Include="include\InputHandler.h" />
+    <ClInclude Include="include\normalMapper.h" />
     <ClInclude Include="include\Properties.h" />
+    <ClInclude Include="include\Renderer.h" />
     <ClInclude Include="include\Scene.h" />
     <ClInclude Include="include\Shader.h" />
     <ClInclude Include="include\stb_image.h" />
+    <ClInclude Include="include\TDO.h" />
     <ClInclude Include="include\WindowManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Shaders\Ffrag.frag" />
+    <None Include="..\Shaders\FfragTEST.frag" />
+    <None Include="..\Shaders\Fvert.vert" />
+    <None Include="..\Shaders\lightShader.fs" />
+    <None Include="..\Shaders\lightShader.vs" />
+    <None Include="..\Shaders\plainFrag.fs" />
+    <None Include="..\Shaders\plainVert.vs" />
+    <None Include="..\Shaders\PP.vs" />
+    <None Include="..\Shaders\PPc.fs" />
+    <None Include="..\Shaders\PPd.fs" />
+    <None Include="..\Shaders\PXmap.frag" />
+    <None Include="..\Shaders\PXmap.vert" />
+    <None Include="..\Shaders\SM.frag" />
+    <None Include="..\Shaders\SM.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

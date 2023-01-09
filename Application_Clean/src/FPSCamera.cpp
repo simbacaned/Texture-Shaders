@@ -8,7 +8,8 @@ FirstPersonCamera::FirstPersonCamera(glm::vec3 pos) : Camera(pos), m_speed(5.0f)
 	m_pitch = 0.0f;
 	m_pitchContrain = 89.0f;
 	updateCameraVectors();
-	m_shader = new Shader("..\\shaders\\plainVert.vs", "..\\shaders\\plainFrag.fs");
+	//m_planeShader = new Shader("..\\shaders\\plainVert.vs", "..\\shaders\\plainFrag.fs");
+	//m_cubeShader = new Shader("..\\shaders\\Fvert.vs", "..\\shaders\\Ffrag.fs");
 }
 
 //getters
@@ -42,6 +43,9 @@ void FirstPersonCamera::update(float dt)
 		if (m_handler->isKeyPressed(GLFW_KEY_W)) {
 			m_position += m_front * vel;
 		}
+		if (m_handler->isKeyPressed(GLFW_KEY_ESCAPE)) {
+			exit(0);
+		}
 		if (m_handler->isKeyPressed(GLFW_KEY_S)) {
 			m_position -= m_front * vel;
 		}
@@ -55,15 +59,20 @@ void FirstPersonCamera::update(float dt)
 			if (isPressingE == false)
 			{
 				isBlinn = !isBlinn;
-				m_shader->setBool("useBlinn", isBlinn);
 				isPressingE = true;
+			}
+		}
+		if (m_handler->isKeyPressed(GLFW_KEY_N)) {
+			if (isPressingN == false)
+			{
+				isNorm = !isNorm;
+				isPressingN = true;
 			}
 		}
 		if (m_handler->isKeyPressed(GLFW_KEY_1)) {
 			if (isPressing1 == false)
 			{
 				isPoint = !isPoint;
-				m_shader->setBool("usePoint", isPoint);
 				isPressing1 = true;
 			}
 		}
@@ -71,7 +80,6 @@ void FirstPersonCamera::update(float dt)
 			if (isPressing2 == false)
 			{
 				isSpot = !isSpot;
-				m_shader->setBool("useSpot", isSpot);
 				isPressing2 = true;
 			}
 		}
@@ -79,7 +87,6 @@ void FirstPersonCamera::update(float dt)
 			if (isPressing3 == false)
 			{
 				isRim = !isRim;
-				m_shader->setBool("useRim", isRim);
 				isPressing3 = true;
 			}
 		}
@@ -87,6 +94,10 @@ void FirstPersonCamera::update(float dt)
 	if (!m_handler->isKeyPressed(GLFW_KEY_E))
 	{
 		isPressingE = false;
+	}
+	if (!m_handler->isKeyPressed(GLFW_KEY_N))
+	{
+		isPressingN = false;
 	}
 	if (!m_handler->isKeyPressed(GLFW_KEY_1))
 	{

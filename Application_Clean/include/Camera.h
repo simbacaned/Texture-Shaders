@@ -43,6 +43,7 @@ public:
 
 	virtual glm::vec3& getPosition() { return m_position; }
 	virtual float getFOV() { return glm::radians(m_zoom); }
+	virtual float getZoom() { return m_zoom; }
 	virtual float& getNearPlane() { return m_nearP; }
 	virtual float& getFarPlane() { return m_farP; }
 	virtual glm::vec3& getFront() { return  m_front; }
