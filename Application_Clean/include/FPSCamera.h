@@ -23,7 +23,8 @@ public:
 	bool isPoint = true;
 	bool isSpot = true;
 	bool isRim = true;
-	bool isNorm = true;
+	bool isNorm = false;
+	bool isGray = false;
 
 private:
 
@@ -35,6 +36,7 @@ private:
 	bool isPressing1 = false;
 	bool isPressing2 = false;
 	bool isPressing3 = false;
+	bool isPressingG = false;
 	Shader* m_cubeShader;
 	Shader* m_planeShader;
 	GLFWwindow* m_window;

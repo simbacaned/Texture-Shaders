@@ -185,8 +185,6 @@
     <None Include="..\Shaders\PPd.fs" />
     <None Include="..\Shaders\PXmap.frag" />
     <None Include="..\Shaders\PXmap.vert" />
-    <None Include="..\Shaders\SM.frag" />
-    <None Include="..\Shaders\SM.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

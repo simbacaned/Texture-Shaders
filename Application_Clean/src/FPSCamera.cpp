@@ -69,6 +69,13 @@ void FirstPersonCamera::update(float dt)
 				isPressingN = true;
 			}
 		}
+		if (m_handler->isKeyPressed(GLFW_KEY_G)) {
+			if (isPressingG == false)
+			{
+				isGray = !isGray;
+				isPressingG = true;
+			}
+		}
 		if (m_handler->isKeyPressed(GLFW_KEY_1)) {
 			if (isPressing1 == false)
 			{
@@ -94,6 +101,10 @@ void FirstPersonCamera::update(float dt)
 	if (!m_handler->isKeyPressed(GLFW_KEY_E))
 	{
 		isPressingE = false;
+	}
+	if (!m_handler->isKeyPressed(GLFW_KEY_G))
+	{
+		isPressingG = false;
 	}
 	if (!m_handler->isKeyPressed(GLFW_KEY_N))
 	{

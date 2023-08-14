@@ -13,7 +13,6 @@ BasicScene::BasicScene(GLFWwindow* window, std::shared_ptr<InputHandler> H) : Sc
 	m_lightShader = new Shader("..\\shaders\\lightShader.vs", "..\\shaders\\lightShader.fs");
 	m_postProcessDepth = new Shader("..\\shaders\\PP.vs", "..\\shaders\\PPd.fs");
 	m_postProcessCol = new Shader("..\\shaders\\PP.vs", "..\\shaders\\PPc.fs");
-	m_shadowMapShader = new Shader("..\\shaders\\SM.vert", "..\\shaders\\SM.frag");
 
 	myCube.setPos(glm::vec3(1.0));
 	myCube.setScale(glm::vec3(1.0));
@@ -51,6 +50,7 @@ void BasicScene::update(float dt)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	SetUniforms(*m_cubeShader);
 	SetUniforms(*m_planeShader);
+	SetUniforms(*m_postProcessCol);
 	renderer.renderScene(*m_cubeShader, *m_planeShader, *m_camera, glfwGetTime());
 	//myCube._draw(GL_TRIANGLES);
 	renderer.renderLights(*m_lightShader, *m_camera);
@@ -70,7 +70,7 @@ void BasicScene::setLightAndMaterialUniforms(Shader& shader)
 	glm::vec3 dirSpec = glm::vec3(1.0);
 
 	// Dir Light
-	shader.setVec3("lightPosition", glm::vec3(1, 1, 0));
+	shader.setVec3("lightPosition", glm::vec3(0.5, 0.5, 0.5));
 	shader.setVec3("light.ambient", dirAm);
 	shader.setVec3("light.diffuse", dirDiff);
 	shader.setVec3("light.specular", dirSpec);
@@ -122,6 +122,7 @@ void BasicScene::SetUniforms(Shader shader)
 	shader.setBool("usePoint", m_camera->isPoint);
 	shader.setBool("useNorm", m_camera->isNorm);
 	shader.setBool("useRim", m_camera->isRim);
+	shader.setBool("useGray", m_camera->isGray);
 }
 
 void BasicScene::setFBOcolourAndDepth()
